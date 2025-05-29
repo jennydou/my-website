@@ -16,6 +16,35 @@
       position: relative;
     }
 
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      background:
+        repeating-linear-gradient(45deg, transparent, transparent 2px, #55000020 3px, transparent 4px);
+      z-index: 0;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      top: 0; bottom: 0;
+      left: 0;
+      width: 20px;
+      background: #330000;
+      box-shadow: 0 0 30px #ff000066;
+      z-index: 1;
+    }
+
+    body::before {
+      right: 0;
+      left: auto;
+      width: 20px;
+      background: #330000;
+      box-shadow: 0 0 30px #ff000066;
+    }
+
     header {
       background: #220000;
       padding: 30px;
@@ -25,11 +54,39 @@
       color: #ff4444;
       animation: flicker 2s infinite;
       position: relative;
-      z-index: 1;
+      z-index: 2;
       text-shadow:
         1px 1px 0 #000,
         0 0 15px #ff0000;
       user-select: none;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding: 15px;
+      background: #1a0000;
+      z-index: 2;
+      position: sticky;
+      top: 0;
+      border-bottom: 2px solid #550000;
+    }
+
+    nav a {
+      color: #ff4444;
+      text-decoration: none;
+      font-family: monospace;
+      font-weight: bold;
+      padding: 6px 12px;
+      background: #330000;
+      border: 1px solid #550000;
+      border-radius: 4px;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      background: #550000;
     }
 
     @keyframes flicker {
@@ -119,41 +176,89 @@
         opacity: 0;
       }
     }
+
+    details {
+      background: #220000;
+      margin-bottom: 20px;
+      padding: 10px 15px;
+      border-left: 4px solid #880000;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    details summary {
+      font-weight: bold;
+      color: #ff5555;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+
+    details p {
+      margin-top: 10px;
+      color: #ddd;
+      white-space: pre-wrap;
+    }
   </style>
 </head>
 <body>
-  <header>
-    ЗАПИСКИ СУМАСШЕДШЕГО ДЖЕННИ
-  </header>
-
+  <header>ЗАПИСКИ СУМАСШЕДШЕГО ДЖЕННИ</header>
+  <nav>
+    <a href="#">Главная</a>
+    <a href="#diary">Дневник</a>
+    <a href="#works">Работы</a>
+    <a href="#coords">Избранное</a>
+  </nav>
   <main>
     <div class="card">
-      <h2>Файл №1: :) </h2>
-      <p>
-         57.3921° N, 37.5937° E. Там, говорят, слышны шепоты ночью.
-      </p>
+      <h2>Файл №1: Координаты веры</h2>
+      <p>Сигналы ведут к северу. Старая колокольня в лесу, 57.3921° N, 37.5937° E. Там, говорят, слышны шепоты ночью.</p>
       <div class="tabs">
         <div class="tab">🧭 Навигация</div>
-        <div class="tab">💭 мыслишки..</div>
+        <div class="tab">💭 Мысли Дженни</div>
         <div class="tab">📜 Досье</div>
       </div>
     </div>
 
     <div class="card">
-      <h2>Файл №2: :) </h2>
-      <p>
-        На юге развалины монастыря XIII века.  45.0372° N, 38.9761° E. 
-      </p>
+      <h2>Файл №2: Пыль и пустота</h2>
+      <p>На юге развалины монастыря XIII века. Координаты 45.0372° N, 38.9761° E. Внутри — обугленные иконы.</p>
       <div class="tabs">
         <div class="tab">📍 Карту сюда</div>
         <div class="tab">📖 Описание места</div>
       </div>
     </div>
+
+    <div id="diary" class="card">
+      <h2>ДНЕВНИК</h2>
+      <p>29.09.2025 — Начало записи. Всё идёт по кругу. Каждая ночь оставляет след, как ожог. В этом пепле я снова нахожу себя.</p>
+      <a href="#">⬅ Вернуться</a>
+    </div>
+
+    <div id="works" class="card">
+      <h2>РАБОТЫ</h2>
+      <details>
+        <summary>Когда я уйду...</summary>
+        <p>Когда я уйду..не сиди в тишине,
+Не ставь моё фото в какой-то там угол.
+Я просто устал притворяться весне, когда за душой — только ветер и уголь...
+...
+Ты — свет в моем самом печальном аккорде.</p>
+      </details>
+      <a href="#">⬅ Вернуться</a>
+    </div>
+
+    <div id="coords" class="card">
+      <h2>ИЗБРАННОЕ</h2>
+      <p>Все ключевые координаты:</p>
+      <ul>
+        <li>57.3921° N, 37.5937° E — Колокольня</li>
+        <li>45.0372° N, 38.9761° E — Монастырь XIII века</li>
+      </ul>
+      <a href="#">⬅ Вернуться</a>
+    </div>
   </main>
 
-  <footer>
-    © 2025 Записки Дженни — там, где вера обуглена
-  </footer>
+  <footer>© 2025 Записки Дженни — там, где вера обуглена</footer>
 
   <script>
     function spawnEmoji() {
@@ -164,9 +269,9 @@
       document.body.appendChild(emoji);
       setTimeout(() => emoji.remove(), 1000);
     }
-    
+
     setInterval(() => {
-      for (let i = 0; i < Math.floor(Math.random() * 3 + 1); i++) {
+      for (let i = 0; i < Math.floor(Math.random() * 5 + 3); i++) {
         spawnEmoji();
       }
     }, 300);
